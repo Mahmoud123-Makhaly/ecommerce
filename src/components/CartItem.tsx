@@ -1,16 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import type { IProduct } from "../interfaces";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardImg,
-  CardText,
-  CardTitle,
-  Col,
-  Row,
-} from "reactstrap";
+import { Button, Card, Col, Row } from "reactstrap";
 import { getMaxLength } from "../utils";
 import { X } from "lucide-react";
 import { useShoppingCart } from "./Store";
