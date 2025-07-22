@@ -16,24 +16,26 @@ const Products = () => {
   }
   return (
     <div className="py-3">
-      <Container fluid className="flex">
-        <Row>
-          <Col md={10}>
-            <Row>
-              {products.length > 0 ? (
-                products.map((product: IProduct) => (
-                  <Col md={6} lg={4} key={product.id}>
-                    <ProductCard key={product.id} product={product} />
-                  </Col>
-                ))
-              ) : (
-                <div className="h-screen  flex justify-center items-center">
-                  <p>No products found</p>
-                </div>
-              )}
-            </Row>
+      <Container>
+        <Row className="flex-col-reverse lg:flex-row w-full  flex-xl-row  justify-center ">
+          <Col lg={9}>
+            <div className="w-full">
+              <Row>
+                {products.length > 0 ? (
+                  products.map((product: IProduct) => (
+                    <Col md={6} lg={4} key={product.id}>
+                      <ProductCard key={product.id} product={product} />
+                    </Col>
+                  ))
+                ) : (
+                  <div className="h-screen  flex justify-center items-center">
+                    <p>No products found</p>
+                  </div>
+                )}
+              </Row>
+            </div>
           </Col>
-          <Col md={2}>
+          <Col lg={3}>
             <Sidebar />
           </Col>
         </Row>
