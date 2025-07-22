@@ -17,6 +17,7 @@ interface ShoppingCartContextType {
   products: IProduct[];
   setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>;
   isLoading: boolean;
+  allProducts: IProduct[];
 }
 export const ShoppingCartContext = createContext<
   ShoppingCartContextType | undefined
@@ -26,6 +27,8 @@ const ShoppingCartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cartItems, setCartItems] = useState<ICartItem[]>([]);
   const [products, setProducts] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [allProducts, setAllProducts] = useState<IProduct[]>([]);
+
   useEffect(() => {
     setIsLoading(true);
     try {
@@ -33,6 +36,7 @@ const ShoppingCartProvider = ({ children }: { children: React.ReactNode }) => {
         const res = await axios.get("https://fakestoreapi.com/products");
 
         setProducts(res.data);
+        setAllProducts(res.data);
       };
       getAllProducts();
     } catch (error) {
@@ -93,6 +97,7 @@ const ShoppingCartProvider = ({ children }: { children: React.ReactNode }) => {
         products,
         setProducts,
         isLoading,
+        allProducts,
       }}
     >
       {children}
