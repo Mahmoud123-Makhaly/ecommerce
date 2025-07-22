@@ -52,7 +52,7 @@ const CartItem = ({ id, quantity }: { id: number; quantity: number }) => {
                 >
                   <X /> Remove From Cart
                 </Button>
-                <p>${cartItem.price * quantity}</p>
+                <p>${(cartItem.price * quantity).toFixed(2)}</p>
               </div>
             </div>
           </Col>

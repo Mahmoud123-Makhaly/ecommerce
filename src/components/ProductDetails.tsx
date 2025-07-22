@@ -4,10 +4,13 @@ import { Link, useParams } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
 import type { IProduct } from "../interfaces";
 import { MoveLeft, ShoppingCart } from "lucide-react";
+import { useShoppingCart } from "./Store";
 
 const Product = () => {
   const [product, setProduct] = useState<IProduct | null>(null);
   const { id } = useParams();
+  const { increaseCartItems, getItemsQuantity } = useShoppingCart();
+
   useEffect(() => {
     const getProduct = async () => {
       const res = await axios.get(`https://fakestoreapi.com/products/${id}`);
@@ -16,6 +19,9 @@ const Product = () => {
     };
     getProduct();
   }, [id]);
+  const handleAddToCart = () => {
+    if (product) increaseCartItems(Number(id));
+  };
   return (
     <div className="py-5 ">
       <Container>
@@ -40,9 +46,19 @@ const Product = () => {
                 <p className="font-semibold my-3 text-[1.2rem] text-[#f67206]">
                   ${product?.price} <span>(Incuding all taxes)</span>
                 </p>
-                <Button className="text-black flex gap-3 py-2 px-4 bg-[#f67206] border-0 hover:bg-[#faaa6b]">
+                <Button
+                  onClick={handleAddToCart}
+                  className="text-black flex gap-3 py-2 px-4 bg-[#f67206] border-0 hover:bg-[#faaa6b]"
+                >
                   <ShoppingCart color="#000" className=" cursor-pointer" />
-                  Add To Cart
+                  Add To Cart{" "}
+                  {getItemsQuantity(Number(id)) ? (
+                    <p className=" rounded-full w-[22px] h-[22px] bg-black text-white leading-5 text-center">
+                      {getItemsQuantity(Number(id))}
+                    </p>
+                  ) : (
+                    ""
+                  )}
                 </Button>
                 <hr className="my-5" />
                 <h3 className="text-[1.5rem] mb-3">Product description</h3>
