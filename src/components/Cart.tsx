@@ -15,11 +15,15 @@ const Cart = () => {
         <MoveLeft /> Back To Home
       </Link>
       <Row>
-        {cartItems.map((item) => (
-          <Col lg={6} key={item.id}>
-            <CartItem {...item} />
-          </Col>
-        ))}
+        {cartItems.length > 0 ? (
+          cartItems.map((item) => (
+            <Col lg={6} key={item.id}>
+              <CartItem {...item} />
+            </Col>
+          ))
+        ) : (
+          <h1 className="text-center text-2xl my-4">No items in cart</h1>
+        )}
       </Row>
     </Container>
   );
