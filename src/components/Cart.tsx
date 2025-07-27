@@ -3,9 +3,23 @@ import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import { useShoppingCart } from "./Store";
 import CartItem from "./CartItem";
+import { useEffect } from "react";
+import cart from "../assets/images/cart.png";
+import Products from "../assets/images/products.jpeg";
 
 const Cart = () => {
   const { cartItems } = useShoppingCart();
+
+  useEffect(() => {
+    document.title = "Cart | Shop";
+    const metaSvg = document.querySelector('link[rel="icon"]');
+    if (metaSvg) metaSvg.setAttribute("href", cart);
+    return () => {
+      document.title = "Products | Shop";
+      metaSvg?.setAttribute("href", Products);
+    };
+  }, [cartItems]);
+
   return (
     <Container className="py-3">
       <Link

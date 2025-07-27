@@ -5,7 +5,7 @@ import { Button, Col, Container, Row } from "reactstrap";
 import type { IProduct } from "../interfaces";
 import { MoveLeft, ShoppingCart } from "lucide-react";
 import { useShoppingCart } from "./Store";
-
+import Products from "../assets/images/products.jpeg";
 const Product = () => {
   const [product, setProduct] = useState<IProduct | null>(null);
   const { id } = useParams();
@@ -22,6 +22,24 @@ const Product = () => {
   const handleAddToCart = () => {
     if (product) increaseCartItems(Number(id));
   };
+  useEffect(() => {
+    if (product) {
+      document.title = product.title;
+
+      const favicon = document.querySelector('link[rel="icon"]');
+      if (favicon) {
+        favicon.setAttribute("href", product.image);
+      }
+    }
+
+    return () => {
+      document.title = "Products | Shop";
+      document
+        .querySelector('link[rel="icon"]')
+        ?.setAttribute("href", Products);
+    };
+  }, [product]);
+
   return (
     <div className="py-5 ">
       <Container>
